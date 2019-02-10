@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LibreriaQx7Java"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LibreriaAccessoDatiInfermeriaMilitareDB"/>
+	<classpathentry kind="lib" path="./external library/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="./external library/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="./external library/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="./external library/swing-layout-1.0.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
