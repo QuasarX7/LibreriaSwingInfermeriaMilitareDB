@@ -268,36 +268,55 @@ public class Report {
         DatiStoriaVaccinale datiStoria = new DatiStoriaVaccinale();
         ArrayList<Object[]> vaccini = datiStoria.storiaVaccinale((String)militare[MILITARE.COGNOME], (String)militare[MILITARE.NOME], (DataOraria) militare[MILITARE.DATA_NASCITA]);
         if (vaccini != null) {
-            tabellaStoria.add(new String[]{"<b>TIPO PROFILASSI</b>", "<b>ULTIMA VACCINAZIONE</b>", "<b>TIPO DOSE</b>", "<b>DATA VACCINAZIONE</b>"});
+            tabellaStoria.add(new String[]{"<b>TIPO PROFILASSI</b>", "<b>PREGRESSA</b>","<b>PREGRESSA DOC.</b>",  "<b>ULTIMA VACCINAZIONE</b>", "<b>TIPO DOSE</b>", "<b>DATA VACCINAZIONE</b>"});
             for (Object[] vaccino : vaccini) {
-                String[] riga = new String[4];
+                String[] riga = new String[6];
                 DataOraria data = (DataOraria) vaccino[STORIA_VACCINALE.DATA_VACCINAZIONE];
                 if (data != null) {
-                    riga[3] = data.stampaGiorno('/');
+                    riga[5] = data.stampaGiorno('/');
                 } else {
-                    continue;
+                	riga[5] = "";
                 }
+                
                 String profilassi = (String) vaccino[STORIA_VACCINALE.PROFILASSI];
                 if (profilassi != null) {
                     riga[0] = profilassi;
                 } else {
                     riga[0] = "?";
                 }
+                
+                Boolean pregressa= (Boolean) vaccino[STORIA_VACCINALE.PREGRESSA];
+                if (pregressa != null) {
+                    riga[1] = pregressa ? "X" : "" ;
+                } else {
+                    riga[1] = "?";
+                }
+                
+                Boolean pregressaDoc= (Boolean) vaccino[STORIA_VACCINALE.PREGRESSA_DOC];
+                if (pregressaDoc != null) {
+                    riga[2] = pregressaDoc ? "X" : "" ;
+                } else {
+                    riga[2] = "?";
+                }
+                
+                if(data == null && pregressaDoc != true && pregressa != true)
+                	continue;
+                
                 String docCivile = (String) vaccino[STORIA_VACCINALE.VACCINAZIONE_CIVILE];
                 String docMilitare = (String) vaccino[STORIA_VACCINALE.VACCINAZIONE_MILITARE];
-                riga[1] = "";
+                riga[3] = "";
                 if (docCivile != null && docMilitare != null) {
                     if (docCivile.compareTo("D") == 0 || docCivile.compareTo("R") == 0) {
-                        riga[1] = "CIVILE";
+                        riga[3] = "CIVILE";
                     } else if (docMilitare.compareTo("D") == 0 || docMilitare.compareTo("R") == 0) {
-                        riga[1] = "MILITARE";
+                        riga[3] = "MILITARE";
                     }
                 }
                 String tipo = (String) vaccino[STORIA_VACCINALE.DOSE];
                 if (tipo != null) {
-                    riga[2] = (String) tipo;
+                    riga[4] = (String) tipo;
                 } else {
-                    riga[2] = "";
+                    riga[4] = "";
                 }
                 tabellaStoria.add(riga);
             }
